@@ -1,3 +1,4 @@
+// name should be updated with every file change so you are loading new content
 var cacheName = 'weatherPWA-step-6-2';
 var filesToCache = [
     '/',
@@ -37,7 +38,7 @@ self.addEventListener('activate', function(e) {
 
     console.log('[Service Worker] Activate');
     e.waitUntil(
-        cache.keys().then(function(keyList){
+        caches.keys().then(function(keyList){
             return Promise.all(keyList.map(function(key){
                 if (key !== cacheName) {
                     console.log('[Service Worker] removing old cache', key);
