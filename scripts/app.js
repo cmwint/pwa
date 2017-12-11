@@ -173,6 +173,23 @@
         statement;
     // TODO add cache logic here
 
+    if ('caches' in window) {
+      // has the service worker already cached this city's data?
+      caches.match(url).then(function(response){
+        // if it does have data
+        if(response) {
+          // display cached data whil app fetches the latest data
+          response.json().then(function updateFromCache(json) {
+            var results = json.query.results;
+            results.key = key;
+            results.label = label;
+            results.created = json.query.created;
+            app.updateForecastCard(results);
+          })
+        }
+      });
+    }
+
     // Fetch the latest data.
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
