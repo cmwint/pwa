@@ -50,13 +50,14 @@
     var selected = select.options[select.selectedIndex];
     var key = selected.value;
     var label = selected.textContent;
-    // init the app.selectedCities array here
+    // init the app.selectedCities array here, if it doesn't already exist
     if(!app.selectedCities) {
       app.selectedCities = [];
     }
     app.getForecast(key, label);
-    // push the selected city to the array and save here
+    // push the selected city to the array
     app.selectedCities.push({key: key, label: label});
+    //  and save here
     app.saveSelectedCities();
     app.toggleAddDialog(false);
   });
