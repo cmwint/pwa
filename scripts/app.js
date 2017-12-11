@@ -331,9 +331,10 @@
   }
 
   // service worker - check if it is available
-  if ('servicewWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register('./service-worker.js')
+    .register('./service-worker.js')
+      // registration triggers a n install event the first time a user hits the page
       .then(function() {
         console.log('Service worker was registered');
       });
