@@ -203,10 +203,10 @@
   };
 
   // save list of cities to localstorage
-  app.saveSelectedCities = function(){
-    var selectCities = JSON.stringify(app.selectedCities);
+  app.saveSelectedCities = function() {
+    var selectedCities = JSON.stringify(app.selectedCities);
     localStorage.selectedCities = selectedCities;
-  }
+  };
 
   app.getIconClass = function(weatherCode) {
     // Weather codes: https://developer.yahoo.com/weather/documentation.html#codes
@@ -317,9 +317,9 @@
 
   // check if any cities are saved in localstorage
   app.selectedCities = localStorage.selectedCities;
-  if(app.selectedCities) {
-    app.selectedCities = JSON.stringify(app.selectedCities);
-    app.selectedCities.forEach(function(city){
+  if (app.selectedCities) {
+    app.selectedCities = JSON.parse(app.selectedCities);
+    app.selectedCities.forEach(function(city) {
       app.getForecast(city.key, city.label);
     });
   } else { // show some fake data
@@ -327,9 +327,8 @@
     app.selectedCities = [
       {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
     ];
-    app.saveSelectedCities;
-  };
-
+    app.saveSelectedCities();
+  }
 
   // TODO add service worker code here
 })();
