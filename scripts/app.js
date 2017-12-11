@@ -192,11 +192,15 @@
   app.updateForecasts = function() {
     var keys = Object.keys(app.visibleCards);
     keys.forEach(function(key) {
-      app.getForecast(key);
+      app.getForecast(key); // show some fake data
     });
   };
 
-  // TODO add saveSelectedCities function here
+  // save list of cities to localstorage
+  app.saveSelectedCities = function(){
+    var selectCities = JSON.stringify(app.selectedCities);
+    localStorage.selectedCities = selectedCities;
+  }
 
   app.getIconClass = function(weatherCode) {
     // Weather codes: https://developer.yahoo.com/weather/documentation.html#codes
@@ -303,9 +307,23 @@
     }
   };
   // TODO uncomment line below to test app with fake data
-  //app.updateForecastCard(initialWeatherForecast);
+  // app.updateForecastCard(initialWeatherForecast);
 
-  // TODO add startup code here
+  // check if any cities are saved in localstorage
+  app.selectedCities = localStorage.selectedCities;
+  if(app.selectedCities) {
+    app.selectedCities = JSON.stringify(app.selectedCities);
+    app.selectedCities.forEach(function(city){
+      app.getForecast(city.key, city.label);
+    });
+  } else { // show some fake data
+    app.updateForecastCard(initialWeatherForecast);
+    app.selectedCities = [
+      {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
+    ];
+    app.saveSelectedCities;
+  };
+
 
   // TODO add service worker code here
 })();
