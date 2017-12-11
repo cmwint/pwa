@@ -173,9 +173,10 @@
         statement;
     // TODO add cache logic here
 
+    // two asynchronous requests for data
     if ('caches' in window) {
       // has the service worker already cached this city's data?
-      caches.match(url).then(function(response){
+      caches.match(url).then(function(response) {
         // if it does have data
         if(response) {
           // display cached data whil app fetches the latest data
